@@ -51,7 +51,30 @@ TODO Introduction
 
 # KEM security properties
 
-#
+## IND-CCA
+
+TODO. Explain adaptive attacks (Bleichenbacher) to explain passive security
+      is not enough. Define IND-CCA.
+
+## Binding properties
+
+TODO. Refer to 2023/1933, 2024/702 for the various binding properties,
+    and attacks.
+
+## Security properties of hybrid KEMs
+
+TODO. IND-CCA robustness
+
+TODO. Component reuse.
+
+## Recommended baseline
+
+IND-CCA, LEAK+-BIND
+
+# Combiners from literature
+
+TODO. Refer to 2018/024, 2024/039, etc. and how these
+
 
 # PQ/T hybrids
 
