@@ -1,0 +1,200 @@
+
+
+
+
+Crypto Forum                                                         TBD
+Internet-Draft                                                       TBD
+Intended status: Informational                               2 July 2024
+Expires: 3 January 2025
+
+
+                Hybrid PQ/T Key Encapsulation Mechanism
+                     draft-kcdt-cfrg-pqt-kem-latest
+
+Abstract
+
+   TODO Abstract
+
+About This Document
+
+   This note is to be removed before publishing as an RFC.
+
+   The latest revision of this draft can be found at
+   https://bwesterb.github.io/pqt-kem/draft-kcdt-cfrg-pqt-kem.html.
+   Status information for this document may be found at
+   https://datatracker.ietf.org/doc/draft-kcdt-cfrg-pqt-kem/.
+
+   Discussion of this document takes place on the Crypto Forum Research
+   Group mailing list (mailto:cfrg@ietf.org), which is archived at
+   https://mailarchive.ietf.org/arch/browse/cfrg.  Subscribe at
+   https://www.ietf.org/mailman/listinfo/cfrg/.
+
+   Source for this draft and an issue tracker can be found at
+   https://github.com/bwesterb/pqt-kem.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on 3 January 2025.
+
+Copyright Notice
+
+   Copyright (c) 2024 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.
+
+Table of Contents
+
+   1.  Introduction
+   2.  Conventions and Definitions
+   3.  KEM security properties
+   4.  PQ/T hybrids
+     4.1.  X25519+Kyber768
+     4.2.  P384+MLKEM1024
+       4.2.1.  Encoding and sizes
+       4.2.2.  Key generation
+       4.2.3.  Combiner
+       4.2.4.  Encapsulation
+       4.2.5.  Decapsulation
+     4.3.  (P256+MLKEM768)
+   5.  Security Considerations
+   6.  IANA Considerations
+   7.  Normative References
+   Appendix A.  Test vectors
+     A.1.  (P256+MLKEM768)
+     A.2.  X25519+MLKEM768
+     A.3.  P384+MLKEM1024
+   Acknowledgments
+   Author's Address
+
+1.  Introduction
+
+   TODO Introduction
+
+2.  Conventions and Definitions
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in
+   BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
+
+3.  KEM security properties
+
+   #
+
+4.  PQ/T hybrids
+
+4.1.  X25519+Kyber768
+
+4.2.  P384+MLKEM1024
+
+4.2.1.  Encoding and sizes
+
+   P384+MLKEM1024 encapsulation key, decapsulation key, ciphertext and
+   shared secrets are all fixed length byte strings.
+
+   Decapsulation key (private):  3360 bytes
+
+   Encapsulation key (public):  1664 bytes
+
+   Ciphertext:  1664 bytes
+
+   Shared secret:  32 bytes
+
+4.2.2.  Key generation
+
+   A P384+MLKEM1024 keypair (decapsulation key, encapsulation key) is
+   generated as follows.
+
+   def GenerateKeyPair():
+     (pk_M, sk_M) = ML-KEM-1024.KeyGen()
+     sk_E = P-384-KeyGen(32)
+     pk_E = P-384-DH(sk_E, P384_BASE)
+     return concat(sk_M, sk_E, pk_E), concat(pk_M, pk_E)
+
+4.2.2.1.  Key derivation
+
+4.2.3.  Combiner
+
+   Given 32 byte strings ss_M, ss_E, and 96 byte strings ct_X, pk_X,
+   representing the ML-KEM-1024 shared secret, P-384 shared secret,
+   P-384 ciphertext (ephemeral public key) and P-384 public key
+   respectively, the 32 byte combined shared secret is given by:
+
+   def Combiner(ss_M, ss_E, ct_E, pk_E):
+       return SHA3-X(concat(
+           # TBD
+       ))
+
+4.2.4.  Encapsulation
+
+   def Encapsulate(pk):
+       # TBD
+
+4.2.4.1.  Derandomized
+
+4.2.5.  Decapsulation
+
+   def Decapsulate(ct, sk):
+       # TBD
+
+4.3.  (P256+MLKEM768)
+
+   ~~~
+
+   ##
+
+5.  Security Considerations
+
+   TODO Security
+
+6.  IANA Considerations
+
+   This document has no IANA actions.
+
+7.  Normative References
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/rfc/rfc2119>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+Appendix A.  Test vectors
+
+A.1.  (P256+MLKEM768)
+
+A.2.  X25519+MLKEM768
+
+A.3.  P384+MLKEM1024
+
+Acknowledgments
+
+   TODO acknowledge.
+
+Author's Address
+
+   TBD
+   TBD
+   Email: TBD
