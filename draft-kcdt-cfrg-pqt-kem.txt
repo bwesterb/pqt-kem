@@ -65,18 +65,23 @@ Table of Contents
    1.  Introduction
    2.  Conventions and Definitions
    3.  KEM security properties
-   4.  PQ/T hybrids
-     4.1.  X25519+Kyber768
-     4.2.  P384+MLKEM1024
-       4.2.1.  Encoding and sizes
-       4.2.2.  Key generation
-       4.2.3.  Combiner
-       4.2.4.  Encapsulation
-       4.2.5.  Decapsulation
-     4.3.  (P256+MLKEM768)
-   5.  Security Considerations
-   6.  IANA Considerations
-   7.  Normative References
+     3.1.  IND-CCA
+     3.2.  Binding properties
+     3.3.  Security properties of hybrid KEMs
+     3.4.  Recommended baseline
+   4.  Combiners from literature
+   5.  PQ/T hybrids
+     5.1.  X25519+Kyber768
+     5.2.  P384+MLKEM1024
+       5.2.1.  Encoding and sizes
+       5.2.2.  Key generation
+       5.2.3.  Combiner
+       5.2.4.  Encapsulation
+       5.2.5.  Decapsulation
+     5.3.  (P256+MLKEM768)
+   6.  Security Considerations
+   7.  IANA Considerations
+   8.  Normative References
    Appendix A.  Test vectors
      A.1.  (P256+MLKEM768)
      A.2.  X25519+MLKEM768
@@ -98,15 +103,37 @@ Table of Contents
 
 3.  KEM security properties
 
-   #
+3.1.  IND-CCA
 
-4.  PQ/T hybrids
+   TODO.  Explain adaptive attacks (Bleichenbacher) to explain passive
+   security is not enough.  Define IND-CCA.
 
-4.1.  X25519+Kyber768
+3.2.  Binding properties
 
-4.2.  P384+MLKEM1024
+   TODO.  Refer to 2023/1933, 2024/702 for the various binding
+   properties, and attacks.
 
-4.2.1.  Encoding and sizes
+3.3.  Security properties of hybrid KEMs
+
+   TODO.  IND-CCA robustness
+
+   TODO.  Component reuse.
+
+3.4.  Recommended baseline
+
+   IND-CCA, LEAK+-BIND
+
+4.  Combiners from literature
+
+   TODO.  Refer to 2018/024, 2024/039, etc. and how these
+
+5.  PQ/T hybrids
+
+5.1.  X25519+Kyber768
+
+5.2.  P384+MLKEM1024
+
+5.2.1.  Encoding and sizes
 
    P384+MLKEM1024 encapsulation key, decapsulation key, ciphertext and
    shared secrets are all fixed length byte strings.
@@ -119,7 +146,7 @@ Table of Contents
 
    Shared secret:  32 bytes
 
-4.2.2.  Key generation
+5.2.2.  Key generation
 
    A P384+MLKEM1024 keypair (decapsulation key, encapsulation key) is
    generated as follows.
@@ -130,9 +157,9 @@ Table of Contents
      pk_E = P-384-DH(sk_E, P384_BASE)
      return concat(sk_M, sk_E, pk_E), concat(pk_M, pk_E)
 
-4.2.2.1.  Key derivation
+5.2.2.1.  Key derivation
 
-4.2.3.  Combiner
+5.2.3.  Combiner
 
    Given 32 byte strings ss_M, ss_E, and 96 byte strings ct_X, pk_X,
    representing the ML-KEM-1024 shared secret, P-384 shared secret,
@@ -144,33 +171,33 @@ Table of Contents
            # TBD
        ))
 
-4.2.4.  Encapsulation
+5.2.4.  Encapsulation
 
    def Encapsulate(pk):
        # TBD
 
-4.2.4.1.  Derandomized
+5.2.4.1.  Derandomized
 
-4.2.5.  Decapsulation
+5.2.5.  Decapsulation
 
    def Decapsulate(ct, sk):
        # TBD
 
-4.3.  (P256+MLKEM768)
+5.3.  (P256+MLKEM768)
 
    ~~~
 
    ##
 
-5.  Security Considerations
+6.  Security Considerations
 
    TODO Security
 
-6.  IANA Considerations
+7.  IANA Considerations
 
    This document has no IANA actions.
 
-7.  Normative References
+8.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
