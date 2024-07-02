@@ -24,9 +24,9 @@ venue:
 
 author:
  -
-    fullname: Your Name Here
+    fullname: "Bas Westerbaan"
     organization: Your Organization Here
-    email: your.email@example.com
+    email: "bas@westerbaan.name"
 
 normative:
 
